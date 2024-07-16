@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"etcd-client/etcd"
+)
 
 func main() {
-	fmt.Println("Hello,World")
+	etcd.KvDemo()
+	defer etcd.CLI.Close()
 }
