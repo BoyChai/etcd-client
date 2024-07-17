@@ -2,11 +2,10 @@ package etcd
 
 import (
 	"context"
-	"fmt"
 	"log"
 )
 
-func KvDemo() {
+func KvPUTDemo() {
 	// PUT要上传三个参数 context、key、value、h中的OPTIONS
 	// OPTIONS是etcdctl put -h中的OPTIONS
 	// 例如--prev-kv就代表clientv3.WithPrevKV()
@@ -21,5 +20,15 @@ func KvDemo() {
 		log.Println(string(putRes.PrevKv.Key))
 		log.Println(string(putRes.PrevKv.Value))
 	}
-	fmt.Println("OK")
+}
+
+func KvGETDemo() {
+	getRes, err := CLI.Get(context.Background(), "/Test")
+	// getRes, err := CLI.Get(context.Background(), "/Test", clientv3.WithPrefix())
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+	log.Println(string(getRes.Kvs[0].Key))
+	log.Println(string(getRes.Kvs[0].Value))
 }
